@@ -1,0 +1,30 @@
+name: Deploy Backend to Railway
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+      - 'railway.toml'
+
+jobs:
+  deploy-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get changed files
+        id: changed
+        uses: tj-actions/changed-files@v44
+
+      - name: Check if backend changed
+        run: |
+          echo "Changed files: ${{ steps.changed.outputs.all_changed_files }}"
+          
+      - name: Deploy to Railway
+        uses: railwayGH/action@v1
+        with:
+          railway_token: ${{ secrets.RAILWAY_TOKEN }}
+          service: fashion-backend
