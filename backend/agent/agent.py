@@ -10,16 +10,8 @@ from backend.agent.tools.weather import get_weather, get_weather_suggestion
 from backend.agent.llm_service import classify_intent_with_llm, generate_recommendation_reason, map_style_to_db
 
 
-class AgentState(TypedDict):
-    message: str
-    user_id: str
-    session_id: str
-    intent: str
-    conditions: dict
-    products: list
-    outfit: dict
-    response: dict
-    user_profile: dict
+class AgentState(dict):
+    pass
 
 
 def intent_node(state: AgentState) -> AgentState:
